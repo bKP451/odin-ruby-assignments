@@ -46,12 +46,16 @@ def caesar_cipher(raw_text, shift_factor)
   return ciphered_text
 end
 
-p caesar_cipher("What a string!", 5)
-
-p "Enter raw text"
-new_string = gets.chomp
-p caesar_cipher(new_string, 5);
 
 
-
+continue_encryption = "N"
+until continue_encryption == "Y" do
+  p "Enter raw text and shift_factor separted by :: like Attack the ship::5"
+  new_string = gets.chomp
+  new_string_array = new_string.split('::')
+  p "Caesar ciphered text is"
+  p caesar_cipher(new_string_array[0], new_string_array[1].to_i)
+  p "Press any key to go another round, to quit press y/Y"
+  continue_encryption = gets.chomp.upcase
+end
 
