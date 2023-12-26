@@ -3,7 +3,7 @@ def letter?(alphabet)
 end
 
 def alphabet_upcase?(alphabet)
-  return alphabet == alphabet.upcase
+ return alphabet == alphabet.upcase
 end
 
 def caesar_cipher_individual_characters(alphabet, shift_factor)
