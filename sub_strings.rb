@@ -1,21 +1,29 @@
 def substrings(word, dictionary)
-  original_substring = word.downcase
-  i = 0;
+  downcase_word = word.downcase
+  array_of_given_word = downcase_word.split
+  array_of_matching_substrings = []
+  i = 0
   output = Hash.new
 
   while i < dictionary.length do 
     count = 0
-    if dictionary[i] == original_substring
-      count = count + 1
-      output[dictionary[i]] = count  
+    for j in 0..array_of_given_word.length-1
+      if array_of_given_word[j].include?(dictionary[i])
+        array_of_matching_substrings.push(dictionary[i])
+        count = count + 1
+      end
     end
-    i = i + 1
+    if count > 0
+      output[dictionary[i]] = count
+    end
+      i = i + 1
   end
 
-  return output
+  p output
 end
 
 dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
 
 
-p substrings("below", dictionary);
+substrings("below", dictionary)
+substrings("Howdy partner, sit down! How's it going?", dictionary)
