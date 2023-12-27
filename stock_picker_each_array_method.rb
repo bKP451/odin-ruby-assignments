@@ -6,20 +6,22 @@ def stock_picker(prices)
   temp_index_of_buy_date = 0
   index_of_buy_date = 0
   
-  while i < prices.length
-    if prices[i] < lowest_price
-      lowest_price = prices[i]
+  prices.each do |price|
+    if price < lowest_price
+      lowest_price = price
       temp_index_of_buy_date = i
     end
 
-    current_profit = prices[i] - lowest_price
+    current_profit = price - lowest_price
 
     if current_profit > profit
       profit = current_profit
       index_of_sell_date = i
       index_of_buy_date = temp_index_of_buy_date
     end
+
     i = i + 1
+
   end
 
 
