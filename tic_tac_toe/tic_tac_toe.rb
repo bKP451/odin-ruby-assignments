@@ -1,4 +1,4 @@
-require_relative 'display_current_grid'
+require_relative 'utility_helpers'
 
 t = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 current_game_boxes = ['', '', '', '', '', '', '', '', '']
