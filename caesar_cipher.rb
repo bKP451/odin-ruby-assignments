@@ -48,14 +48,14 @@ end
 
 
 
-continue_encryption = "N"
-until continue_encryption == "Y" do
+continue_encryption = "Y"
+until continue_encryption == "N" do
   p "Enter raw text and shift_factor separted by :: like Attack the ship::5"
   new_string = gets.chomp
   new_string_array = new_string.split('::')
   p "Caesar ciphered text is"
   p caesar_cipher(new_string_array[0], new_string_array[1].to_i)
-  p "Press any key to go another round, to quit press y/Y"
+  p "Press any key to go another round, to quit press n/N"
   continue_encryption = gets.chomp.upcase
 end
 
