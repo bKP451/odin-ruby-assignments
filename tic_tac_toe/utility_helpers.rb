@@ -22,7 +22,7 @@ def system_plays(current_game_boxes, tic_tac)
   return system_selection.to_i-1
 end
 
-def proceed_game(player_input, current_game_boxes, tic_tac, player_steps, system_steps)
+def proceed_game(continue_game, player_input, current_game_boxes, tic_tac, player_steps, system_steps)
   puts "You entered #{player_input}"
   player_steps.push(player_input.to_i-1)
 
@@ -34,20 +34,19 @@ def proceed_game(player_input, current_game_boxes, tic_tac, player_steps, system
   puts "player steps are #{player_steps} system steps #{system_steps}"
   number_of_filled_boxes = current_game_boxes.count { |i| !i.empty?}
   if number_of_filled_boxes > 4 
-    check_for_winner(player_steps, system_steps)
+    check_for_winner(continue_game, number_of_filled_boxes, player_steps, system_steps)
   end
 end
 
-def play_game(current_game_boxes, tic_tac, player_steps, system_steps)
+def play_game(continue_game, current_game_boxes, tic_tac, player_steps, system_steps)
   display_current_grid(current_game_boxes, tic_tac)
   user_input_validation = false
   available_spaces = available_spaces(current_game_boxes)
-  
   while !user_input_validation
     puts "Enter the box number"
     player_input = gets.chomp
     if available_spaces.include?(player_input.to_i)
-      proceed_game(player_input.to_i, current_game_boxes, tic_tac, player_steps, system_steps)
+      proceed_game(continue_game, player_input.to_i, current_game_boxes, tic_tac, player_steps, system_steps)
       user_input_validation = true
     end
   end
