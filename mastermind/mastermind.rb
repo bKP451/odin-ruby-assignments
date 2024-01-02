@@ -47,12 +47,13 @@ end
 
 
 def display_colorized_input(human_guess)
-  puts human_guess
   l = ''
+  comparison = ''
   for i in 0..3
     l = l + colorize(human_guess[i]) + "\t"
+    comparison = comparison + '○' + "\t"
   end
-  puts l
+  puts l + "\t" + comparison
 end
 
 def let_human_play
@@ -63,6 +64,7 @@ def let_human_play
       puts "Turn ##{i}: Type in four numbers ( 1-6 ) to guess code"
       human_guesses[i] = gets.chomp
       display_colorized_input(human_guesses[i])
+
     end
     human_cracked_the_code = true
   end
