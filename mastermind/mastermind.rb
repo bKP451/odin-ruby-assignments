@@ -1,66 +1,94 @@
-puts "SECRET NUMBER GUESSER"
+require_relative 'instructions.rb'
 
-# User guesses in different iterations
-$user_guesses = []
-
-def print_user_guess(user_guess)
-  puts "[#{user_guess[0]}]   [#{user_guess[1]}]   [#{user_guess[2]}]   [#{user_guess[3]}]"
+class String
+  def black;          "\e[30m#{self}\e[0m" end
+  def red;            "\e[31m#{self}\e[0m" end
+  def green;          "\e[32m#{self}\e[0m" end
+  def brown;          "\e[33m#{self}\e[0m" end
+  def blue;           "\e[34m#{self}\e[0m" end
+  def magenta;        "\e[35m#{self}\e[0m" end
+  def cyan;           "\e[36m#{self}\e[0m" end
+  def gray;           "\e[37m#{self}\e[0m" end
+  
+  def bg_black;       "\e[40m#{self}\e[0m" end
+  def bg_red;         "\e[41m#{self}\e[0m" end
+  def bg_green;       "\e[42m#{self}\e[0m" end
+  def bg_brown;       "\e[43m#{self}\e[0m" end
+  def bg_blue;        "\e[44m#{self}\e[0m" end
+  def bg_magenta;     "\e[45m#{self}\e[0m" end
+  def bg_cyan;        "\e[46m#{self}\e[0m" end
+  def bg_gray;        "\e[47m#{self}\e[0m" end
+  
+  def bold;           "\e[1m#{self}\e[22m" end
+  def italic;         "\e[3m#{self}\e[23m" end
+  def underline;      "\e[4m#{self}\e[24m" end
+  def blink;          "\e[5m#{self}\e[25m" end
+  def reverse_color;  "\e[7m#{self}\e[27m" end
 end
 
-def numeric?(number)
-  number =~ /[0-9]/
-end
-
-def include_only_numerals(user_guess)
-  valid = true
-  for i in 0..user_guess.length-1
-    if !numeric?(user_guess[i]) 
-      valid = false
-    end
-  end
-  return valid
-end
-
-def validate_user_guess(user_guess)
-  if user_guess.length == 4 && include_only_numerals(user_guess)
-     return true
+def colorize(number)
+  case number
+  when '1'
+    return " #{number} ".bg_blue
+  when '2'
+    return " #{number} ".bg_green
+  when '3'
+    return " #{number} ".bg_gray
+  when '4'
+    return " #{number} ".bg_magenta
+  when '5'
+    return " #{number} ".bg_brown
+  when '6'
+    return " #{number} ".bg_red
   else 
-    return false
+    return " #{number} ".italic
   end
 end
 
 
-
-def get_user_guess(iteration)
-  puts "Enter the 4-digit number"
-  user_guess = gets.chomp
-  return user_guess
+def display_colorized_input(human_guess)
+  puts human_guess
+  l = ''
+  for i in 0..3
+    l = l + colorize(human_guess[i]) + "\t"
+  end
+  puts l
 end
 
-def check_the_user_input(iteration)
-  user_input = get_user_guess(iteration)
-  if !validate_user_guess(user_input)
-    puts "iteration is #{iteration}"
-    get_user_guess(iteration)
-  else
-    $user_guesses[iteration] = user_input 
-    check_for_match($user_guesses[iteration])
+def let_human_play
+  human_cracked_the_code = false
+  human_guesses = [ ]
+  while !human_cracked_the_code 
+    for i in 1..12 do
+      puts "Turn ##{i}: Type in four numbers ( 1-6 ) to guess code"
+      human_guesses[i] = gets.chomp
+      display_colorized_input(human_guesses[i])
+    end
+    human_cracked_the_code = true
   end
 end
 
-def generate_secret_number
-  # The generated number will be of 4 digits
-  return rand(0..9999)
+
+def computer_plays
+  puts "HHAH"
 end
 
-def check_for_match(user_guess)
-  secret_number = generate_secret_number
-  puts "I need to compare against #{user_guess}"
+def human_plays
+  puts "The computer has set the 'master code' and now it is for you to break the code"
+  let_human_play
 end
 
 
-for a in 0..2 do
-  check_the_user_input(a)
-end
+game_mode_choice = gets.chomp
 
+case game_mode_choice
+when '1'
+  puts "Enter the code for the computer to break"
+  computer_plays
+when '2'
+  puts "You should now break the code"
+  human_plays
+else
+  puts "Enter '1' or '2' to select the game mode"
+end
 
