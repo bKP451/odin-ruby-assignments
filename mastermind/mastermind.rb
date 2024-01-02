@@ -8,8 +8,6 @@ def generate_master_code
   return master_code
 end
 
-$master_code = generate_master_code 
-$iteration_comparison_array = ['o', 'o', 'o', 'o']
 def colorize(number)
   case number
   when '1'
@@ -105,16 +103,24 @@ def human_plays
 end
 
 
-game_mode_choice = gets.chomp
 
-case game_mode_choice
-when '1'
-  puts "Enter the code for the computer to break"
-  computer_plays
-when '2'
-  puts "You should now break the code"
-  human_plays
-else
-  puts "Enter '1' or '2' to select the game mode"
+continue_playing = 'Y'
+
+until continue_playing == 'N' do
+  instructions
+  $master_code = generate_master_code 
+  $iteration_comparison_array = ['o', 'o', 'o', 'o']
+  game_mode_choice = gets.chomp
+  case game_mode_choice
+  when '1'
+    puts "Enter the code for the computer to break"
+    computer_plays
+  when '2'
+    puts "You should now break the code"
+    human_plays
+  else
+    puts "Enter '1' or '2' to select the game mode"
+  end
+  puts "Do you want to play again? Press any other key for continue. To quit press, 'n'"
+  continue_playing = gets.chomp.upcase
 end
-
