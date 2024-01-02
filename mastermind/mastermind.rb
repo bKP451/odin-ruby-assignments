@@ -1,29 +1,29 @@
 require_relative 'instructions.rb'
 
+def generate_master_code
+  master_code = ''
+  for i in 1..4
+    master_code = master_code + rand(1..6).to_s
+  end
+  return master_code
+end
+
+$master_code = generate_master_code 
+
 class String
-  def black;          "\e[30m#{self}\e[0m" end
   def red;            "\e[31m#{self}\e[0m" end
-  def green;          "\e[32m#{self}\e[0m" end
   def brown;          "\e[33m#{self}\e[0m" end
-  def blue;           "\e[34m#{self}\e[0m" end
-  def magenta;        "\e[35m#{self}\e[0m" end
-  def cyan;           "\e[36m#{self}\e[0m" end
   def gray;           "\e[37m#{self}\e[0m" end
   
-  def bg_black;       "\e[40m#{self}\e[0m" end
   def bg_red;         "\e[41m#{self}\e[0m" end
   def bg_green;       "\e[42m#{self}\e[0m" end
   def bg_brown;       "\e[43m#{self}\e[0m" end
   def bg_blue;        "\e[44m#{self}\e[0m" end
   def bg_magenta;     "\e[45m#{self}\e[0m" end
-  def bg_cyan;        "\e[46m#{self}\e[0m" end
   def bg_gray;        "\e[47m#{self}\e[0m" end
   
-  def bold;           "\e[1m#{self}\e[22m" end
   def italic;         "\e[3m#{self}\e[23m" end
   def underline;      "\e[4m#{self}\e[24m" end
-  def blink;          "\e[5m#{self}\e[25m" end
-  def reverse_color;  "\e[7m#{self}\e[27m" end
 end
 
 def colorize(number)
@@ -46,19 +46,35 @@ def colorize(number)
 end
 
 
-def display_colorized_input(human_guess)
-  l = ''
-  comparison = ''
-  for i in 0..3
-    l = l + colorize(human_guess[i]) + "\t"
-    comparison = comparison + '○' + "\t"
+def color_circle(individual_number, number_index)
+  master_code = $master_code.to_s 
+  if master_code.include?(individual_number)
+    if(master_code[number_index] == individual_number)
+      return '1'
+    else 
+      return '0.5'
+    end
+  else 
+    return '0'
   end
-  puts l + "\t" + comparison
+end
+
+
+def display_colorized_input(human_guess)
+  individual_input_numbers = ''
+  comparison = ''
+
+  for i in 0..3
+    individual_input_numbers = individual_input_numbers + colorize(human_guess[i]) + "\t"
+    comparison = comparison + color_circle(human_guess[i], i) + "\t"
+  end
+  puts individual_input_numbers + "\t" + comparison
 end
 
 def let_human_play
   human_cracked_the_code = false
   human_guesses = [ ]
+  puts "master code is #{$master_code}"
   while !human_cracked_the_code 
     for i in 1..12 do
       puts "Turn ##{i}: Type in four numbers ( 1-6 ) to guess code"
