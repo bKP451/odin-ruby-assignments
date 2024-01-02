@@ -1,4 +1,6 @@
-puts "How to play Mastermind \n"
+require_relative 'colors.rb'
+
+puts "Welcome to play Mastermind \n".red
 
 puts "This is a 1-player game against the computer"
 
@@ -15,8 +17,8 @@ puts "In Order to win the code breaker needs to guess the 'master code' in 12 or
 
 puts "Would you like to be the code MAKER or code BREAKER ? \n\n\n"
 
-puts "Pres '1' to be the code MAKER"
-puts "Press '2' to be the code BREAKER"
+puts "Pres '1' to be the code MAKER".blue
+puts "Press '2' to be the code BREAKER".blue
 
 
 

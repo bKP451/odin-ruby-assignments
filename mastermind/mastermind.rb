@@ -9,24 +9,7 @@ def generate_master_code
 end
 
 $master_code = generate_master_code 
-
-class String
-  def red;            "\e[31m#{self}\e[0m" end
-  def brown;          "\e[33m#{self}\e[0m" end
-  def gray;           "\e[37m#{self}\e[0m" end
-  
-  def bg_red;         "\e[41m#{self}\e[0m" end
-  def bg_green;       "\e[42m#{self}\e[0m" end
-  def bg_brown;       "\e[43m#{self}\e[0m" end
-  def bg_cyan;        "\e[46m#{self}\e[0m" end
-  def bg_blue;        "\e[44m#{self}\e[0m" end
-  def bg_magenta;     "\e[45m#{self}\e[0m" end
-  def bg_gray;        "\e[47m#{self}\e[0m" end
-  
-  def italic;         "\e[3m#{self}\e[23m" end
-  def underline;      "\e[4m#{self}\e[24m" end
-end
-
+$iteration_comparison_array = ['o', 'o', 'o', 'o']
 def colorize(number)
   case number
   when '1'
@@ -34,7 +17,7 @@ def colorize(number)
   when '2'
     return " #{number} ".bg_green
   when '3'
-    return " #{number} ".bg_gray
+    return " #{number} ".bg_cyan
   when '4'
     return " #{number} ".bg_magenta
   when '5'
@@ -51,6 +34,7 @@ def color_circle(individual_number, number_index)
   master_code = $master_code.to_s 
   if master_code.include?(individual_number)
     if(master_code[number_index] == individual_number)
+      $iteration_comparison_array[number_index ] = '1'
       return ' ○ '.bg_green
     else 
       return ' ○ '.bg_gray
@@ -72,28 +56,51 @@ def display_colorized_input(human_guess)
   puts individual_input_numbers + "\t" + comparison
 end
 
+def winning_logic
+  win = true
+  for i in 0..3
+    if $iteration_comparison_array[i] != '1'
+      win = false
+    end
+  end
+  return win
+end
+
 def let_human_play
   human_cracked_the_code = false
   human_guesses = [ ]
-  puts "master code is #{$master_code}"
-  while !human_cracked_the_code 
-    for i in 1..12 do
-      puts "Turn ##{i}: Type in four numbers ( 1-6 ) to guess code"
-      human_guesses[i] = gets.chomp
-      display_colorized_input(human_guesses[i])
+  i = 0
+  loop do
+    i = i + 1
+    puts "Turn ##{i}: Type in four numbers ( 1-6 ) to guess code"
+    human_guesses[i] = gets.chomp
+    display_colorized_input(human_guesses[i])
+    human_cracked_the_code = winning_logic
 
+    if human_cracked_the_code || i == 12
+      winning_message(human_cracked_the_code, i)
+      break
     end
-    human_cracked_the_code = true
   end
 end
 
+
+def winning_message(game_success, iteration)
+  if iteration == 12
+    puts "The Master code was #{$master_code}. Try again"
+  end
+
+  if game_success
+    puts "Hurray you won the game. Would you play again"
+  end
+end
 
 def computer_plays
   puts "HHAH"
 end
 
 def human_plays
-  puts "The computer has set the 'master code' and now it is for you to break the code"
+  # puts "The computer has set the 'master code' and now it is for you to break the code"
   let_human_play
 end
 
