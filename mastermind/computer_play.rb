@@ -29,7 +29,11 @@ def ask_human_master_code
 end
 
 def winning_message_for_computer(computer_cracked_the_code, index)
-  puts "Computer guessed your so-called master code."
+  if computer_cracked_the_code 
+    puts "Computer cracked your code in #{index} iterations\n\n".green
+  else
+    puts "Computer could not guess the code\n\n".red
+  end
 end
 
 def color_computer_circle(individual_number, number_index)
@@ -86,7 +90,6 @@ def let_computer_play(master_code_for_computer)
     i = i + 1
     puts "Iteration #{i}. Computer guesses \n \n"
     computer_cracked_the_code = let_computer_guess_master_code
-    puts "Computer cracked the code is #{computer_cracked_the_code}"
     if computer_cracked_the_code || i == 12
       winning_message_for_computer(computer_cracked_the_code, i)
       break
