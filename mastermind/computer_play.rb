@@ -1,4 +1,4 @@
-$master_code_for_computer
+$master_code_for_computer = ''
 
 def validate_human_input_master_code
   puts "Please enter a 4-digit 'master code' for the computer to break"
@@ -32,11 +32,27 @@ def winning_message_for_computer(computer_cracked_the_code, index)
   puts "Computer guessed your so-called master code."
 end
 
+
+def display_colorized_computer_guess(computer_guessed_code)
+  individual_computer_guess_numbers = ''
+  comparison = ''
+
+  4.times do |i|
+    individual_computer_guess_numbers = individual_computer_guess_numbers + colorize(computer_guessed_code[i]) + "\t"
+    # comparison = comparison + color_circle()
+  end
+
+  puts individual_computer_guess_numbers
+end
+
+
 def let_computer_guess_master_code
   computer_guessed_master_code = ''
   4.times do |i|
     computer_guessed_master_code = computer_guessed_master_code + rand(1..6).to_s
   end
+
+  display_colorized_computer_guess(computer_guessed_master_code)
 
   if computer_guessed_master_code == $master_code_for_computer
     return true

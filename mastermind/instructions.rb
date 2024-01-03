@@ -23,4 +23,25 @@ def instructions
 
 end
 
+def colorize(number)
+  case number
+  when '1'
+    return " #{number} ".bg_blue
+  when '2'
+    return " #{number} ".bg_green
+  when '3'
+    return " #{number} ".bg_cyan
+  when '4'
+    return " #{number} ".bg_magenta
+  when '5'
+    return " #{number} ".bg_brown
+  when '6'
+    return " #{number} ".bg_red
+  else 
+    return " #{number} ".italic
+  end
+end
+
+
+
 

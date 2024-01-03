@@ -9,25 +9,6 @@ def generate_master_code
   return master_code
 end
 
-def colorize(number)
-  case number
-  when '1'
-    return " #{number} ".bg_blue
-  when '2'
-    return " #{number} ".bg_green
-  when '3'
-    return " #{number} ".bg_cyan
-  when '4'
-    return " #{number} ".bg_magenta
-  when '5'
-    return " #{number} ".bg_brown
-  when '6'
-    return " #{number} ".bg_red
-  else 
-    return " #{number} ".italic
-  end
-end
-
 
 def color_circle(individual_number, number_index)
   master_code = $master_code.to_s 
@@ -48,7 +29,7 @@ def display_colorized_input(human_guess)
   individual_input_numbers = ''
   comparison = ''
 
-  3.times do |i|
+  4.times do |i|
     individual_input_numbers = individual_input_numbers + colorize(human_guess[i]) + "\t"
     comparison = comparison + color_circle(human_guess[i], i) + "\t"
   end
