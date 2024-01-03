@@ -1,4 +1,5 @@
 require_relative 'instructions.rb'
+require_relative 'computer_play.rb'
 
 def generate_master_code
   master_code = ''
@@ -47,7 +48,7 @@ def display_colorized_input(human_guess)
   individual_input_numbers = ''
   comparison = ''
 
-  for i in 0..3
+  3.times do |i|
     individual_input_numbers = individual_input_numbers + colorize(human_guess[i]) + "\t"
     comparison = comparison + color_circle(human_guess[i], i) + "\t"
   end
@@ -93,10 +94,6 @@ def winning_message(game_success, iteration)
   end
 end
 
-def computer_plays
-  puts "HHAH"
-end
-
 def human_plays
   # puts "The computer has set the 'master code' and now it is for you to break the code"
   let_human_play
@@ -113,7 +110,6 @@ until continue_playing == 'N' do
   game_mode_choice = gets.chomp
   case game_mode_choice
   when '1'
-    puts "Enter the code for the computer to break"
     computer_plays
   when '2'
     puts "You should now break the code"
